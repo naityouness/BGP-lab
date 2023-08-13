@@ -1,0 +1,5 @@
+---
+- name: OSPF config
+  ios_config:
+    src: "templates/ospf.j2"
+                 

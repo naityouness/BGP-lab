@@ -1,0 +1,16 @@
+#Interfaces
+
+interfaces:
+    - {nameif: GigabitEthernet0/0, description: "to C", ipv4_address: "17.1.1.1 255.255.255.252", process_id: 1, area_id: 0 } 
+
+    
+
+
+#OSPF
+
+ospf:
+   process_id: 1
+   area_id: 0
+   router_id: 17.1.1.1 
+   networks:
+     - {network: 17.1.1.0, wildcard_bits: 0.0.0.0}

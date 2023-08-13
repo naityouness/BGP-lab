@@ -1,0 +1,51 @@
+interfaces:
+    - {nameif: GigabitEthernet0/0, description: "to isp1", ipv4_address: "8.1.3.2 255.255.255.252", process_id: 1, area_id: 0} 
+    - {nameif: GigabitEthernet0/1, description: "to ISP4", ipv4_address: "8.1.4.2 255.255.255.252", process_id: 1, area_id: 0} 
+    - {nameif: GigabitEthernet0/2, description: "to isp2", ipv4_address: "8.1.5.1 255.255.255.252", process_id: 1, area_id: 0} 
+    - {nameif: GigabitEthernet0/3, description: "to ISP5", ipv4_address: "8.1.6.1 255.255.255.252", process_id: 1, area_id: 0} 
+    - {nameif: lo0, description: "loopback", ipv4_address: "8.8.8.3 255.255.255.255", process_id: 1, area_id: 0} 
+
+
+
+#OSPF
+
+ospf:
+   process_id: 1
+   area_id: 0
+   router_id: 8.8.8.3
+   networks:
+     - {network: 0.0.0.0, wildcard_bits: 255.255.255.255}
+
+
+
+
+
+
+
+#BGP
+
+
+igp:
+  asn: 65001
+  router_id: 8.8.8.3
+  neighbor:
+    - {address: 8.8.8.1, remote_as: 65001}
+    - {address: 8.8.8.2, remote_as: 65001}
+    - {address: 8.8.8.4, remote_as: 65001}
+    - {address: 8.8.8.5, remote_as: 65001}
+  networks:
+    - {network: 8.1.3.0, mask: 255.255.255.252}
+    - {network: 8.1.4.0, mask: 255.255.255.255}
+    - {network: 8.1.5.0, mask: 255.255.255.252}
+    - {network: 8.1.6.0, mask: 255.255.255.252}
+  
+
+route_reflector: 
+             peer_group: intra-bgp 
+             asn: 65001
+             router_id: 8.8.8.3
+             neighbor:
+              - {address: 8.8.8.1, remote_as: 65001, peer_group: intra-bgp }
+              - {address: 8.8.8.2, remote_as: 65001, peer_group: intra-bgp }
+              - {address: 8.8.8.4, remote_as: 65001, peer_group: intra-bgp }
+              - {address: 8.8.8.5, remote_as: 65001, peer_group: intra-bgp }

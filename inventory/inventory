@@ -1,0 +1,10 @@
+[routers]
+c1 ansible_host=192.168.124.131
+c2 ansible_host=192.168.124.132
+isp1 ansible_host=192.168.124.133
+isp4 ansible_host=192.168.124.134
+isp3 ansible_host=192.168.124.135
+isp2 ansible_host=192.168.124.136
+isp5 ansible_host=192.168.124.137
+c3 ansible_host=192.168.124.138
+c4 ansible_host=192.168.124.139

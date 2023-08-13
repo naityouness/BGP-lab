@@ -1,0 +1,13 @@
+- name: "BGP LAB"
+  hosts: all
+  gather_facts: no
+  connection: network_cli
+  roles:
+    - role: interfaces
+      tags: interfaces
+    - role: ospf
+      tags: ospf
+    - role: bgp 
+      tags: bgp 
+    - role: eigrp 
+      tags: eigrp

@@ -1,0 +1,13 @@
+{% if interfaces is defined %}
+{% for item in interfaces -%}
+  interface {{ item.nameif }}
+  description {{ item.description }}
+  ip address {{ item.ipv4_address }}
+  ip ospf {{ item.process_id }} area {{ item.area_id }}
+  no shut
+{% endfor %}
+{%- endif %}
+
+
+
+

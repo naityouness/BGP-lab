@@ -1,0 +1,5 @@
+---
+
+- name: BGP config 
+  ios_config:
+    src: "templates/bgp.j2"

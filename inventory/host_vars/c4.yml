@@ -1,0 +1,18 @@
+--- 
+
+#Interfaces
+
+interfaces:
+    - {nameif: GigabitEthernet0/0, description: "to C3", ipv4_address: "17.1.2.2 255.255.255.252", process_id: 1, area_id: 0 } 
+
+
+
+
+#EIGRP
+
+eigrp:
+   AS: 100 
+   interfaces: 
+   - {nameif: GigabitEthernet0/0, AS: 100} 
+   networks:
+     - {network: 17.1.2.2, wildcard_bits: 0.0.0.0} 

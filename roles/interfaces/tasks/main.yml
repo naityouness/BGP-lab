@@ -1,0 +1,4 @@
+- name: interfaces config
+  ios_config:
+    src: "templates/interfaces.j2"
+                 

@@ -1,0 +1,40 @@
+#Interfaces
+
+
+#Interfaces
+
+interfaces:
+    - {nameif: GigabitEthernet0/0, description: "to C1", ipv4_address: "17.1.1.2 255.255.255.252", process_id: 1, area_id: 0 } 
+    - {nameif: GigabitEthernet0/1, description: "to ISP1", ipv4_address: "8.1.1.1 255.255.255.252", process_id: 1, area_id: 0 } 
+    - {nameif: GigabitEthernet0/2, description: "to ISP4", ipv4_address: "8.1.2.1 255.255.255.252", process_id: 1, area_id: 0 } 
+    - {nameif: lo0, description: "loopback", ipv4_address: "8.8.8.2 255.255.255.255", process_id: 1, area_id: 0} 
+
+
+
+
+#OSPF
+
+ospf:
+   process_id: 1
+   area_id: 0
+   router_id: 17.1.1.2
+   passive_nameif: GigabitEthernet 0/1
+   default_information: always
+   networks:
+     - {network: 17.1.1.0, wildcard_bits: 0.0.0.0}
+     - {network: 8.8.8.2, wildcard_bits: 0.0.0.0}
+
+
+
+#BGP
+
+
+egp:
+  asn: 65000
+  router_id: 17.1.1.2
+  neighbor:
+    - {address: 8.1.1.2, remote_as: 65001, weight: 100}
+    - {address: 8.1.2.2, remote_as: 65001, weight: 200}
+  networks:
+    - {network: 17.1.1.0, mask: 255.255.255.252}
+    - {network: 8.8.8.2, mask: 255.255.255.255}

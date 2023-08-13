@@ -1,0 +1,5 @@
+---
+
+- name: Eigrp config 
+  ios_config:
+    src: "templates/eigrp.j2"

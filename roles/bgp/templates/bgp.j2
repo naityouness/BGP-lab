@@ -1,0 +1,64 @@
+#EGP
+
+{% if egp is defined %}
+router bgp {{ egp.asn }}
+  bgp router-id {{ egp.router_id }}
+  bgp log-neighbor-changes
+{% for item in egp.neighbor %}
+ neighbor {{ item.address }} remote-as {{ item.remote_as }}
+{% endfor %}
+ !
+ address-family ipv4
+{% for item in egp.networks %}
+  network {{ item.network }} mask {{ item.mask }}
+{% endfor %}
+{% for item in egp.neighbor %}
+  neighbor {{ item.address }} activate
+  neighbor {{ item.address }} weight {{ item.weight }}
+{% endfor %}
+{% if egp.maxpath is defined %}
+  maximum-paths eibgp {{ egp.maxpath }}
+{% endif %}
+ exit-address-family
+{% endif %}
+
+
+
+#IGP
+
+{% if igp is defined %}
+router bgp {{ igp.asn }}
+  bgp router-id {{ igp.router_id }}
+  bgp log-neighbor-changes
+{% for item in igp.neighbor %}
+ neighbor {{ item.address }} remote-as {{ item.remote_as }}
+{% endfor %}
+ !
+ address-family ipv4
+{% for item in igp.networks %}
+  network {{ item.network }} mask {{ item.mask }}
+{% endfor %}
+{% for item in igp.neighbor %}
+  neighbor {{ item.address }} activate
+  neighbor {{ item.address }} update-source loopback0 
+{% endfor %}
+{% if igp.maxpath is defined %}
+  maximum-paths eibgp {{ igp.maxpath }}
+{% endif %}
+ exit-address-family
+{% endif %}
+
+
+
+#ROUTE REFLECTOR
+
+{% if route_reflector is defined %}
+router bgp {{ route_reflector.asn }}
+{% for item in route_reflector.neighbor %}
+ neighbor intra-bgp peer-group
+ neighbor {{ item.address }} peer-group {{ item.peer_group }}
+ neighbor intra-bgp route-reflector-client
+ address-family ipv4
+ redistribute connected
+{% endfor %}
+{% endif %}

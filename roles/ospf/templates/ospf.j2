@@ -1,0 +1,19 @@
+{% if ospf is defined %}
+router ospf {{ ospf.process_id }}
+  router-id {{ ospf.router_id }}
+{% for item in ospf.networks %}
+  network {{ item.network }} {{ item.wildcard_bits }} area {{ ospf.area_id }}
+   {% endfor %}
+ {%- endif %}
+{% if ospf.passive_nameif is defined %}
+  router ospf {{ ospf.process_id }}
+   passive-interface {{ ospf.passive_nameif }}
+ {%- endif %}
+
+{% if ospf.default_information is defined %}
+  router ospf {{ ospf.process_id }}
+   default-information originate {{ ospf.default_information }}
+ {%- endif %}
+
+
+ 

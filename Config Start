@@ -1,0 +1,34 @@
+! Domain name
+ip domain name domain.lan
+
+hostname C4
+
+
+
+
+! Credentials
+username admin password a
+enable password a
+
+! AAA
+line vty 0 4
+ login local
+ transport input ssh
+
+
+! Management IP
+interface GigabitEthernet0/3
+ ip address 192.168.124.139 255.255.255.0
+ no shut
+ exit
+
+crypto key generate rsa modulus 1024
+
+
+
+
+Code improvement :
+
+- Check how to get rid of interfaces ospf config for interfaces that should not be in ospf 
+- ansible vault 
+- jinja 2 templates

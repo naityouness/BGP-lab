@@ -1,0 +1,45 @@
+
+#Interfaces
+
+interfaces:
+    - {nameif: GigabitEthernet0/0, description: "to ISP2", ipv4_address: "8.1.7.2 255.255.255.252", process_id: 1, area_id: 0 } 
+    - {nameif: GigabitEthernet0/1, description: "to ISP5", ipv4_address: "8.1.8.2 255.255.255.252", process_id: 1, area_id: 0 } 
+    - {nameif: GigabitEthernet0/2, description: "to C4", ipv4_address: "17.1.2.1 255.255.255.252", process_id: 1, area_id: 0 } 
+    - {nameif: Loopback0, description: "loopback", ipv4_address: "8.8.8.6 255.255.255.255", process_id: 1, area_id: 0 } 
+
+
+
+
+#EIGRP
+
+eigrp:
+   AS: 100 
+   interfaces: 
+   - {nameif: GigabitEthernet0/2, AS: 100} 
+   networks:
+     - {network: 17.1.2.1, wildcard_bits: 0.0.0.0}
+
+#EIGRP DEFAULT ROUTE
+
+eigrp_default:
+   AS: 100 
+   interfaces: 
+   - {nameif: GigabitEthernet0/2, AS: 100} 
+
+
+
+
+#BGP
+
+
+egp:
+  asn: 65002
+  router_id: 8.8.8.6
+  neighbor:
+    - {address: 8.1.7.1, remote_as: 65001, weight: 100 }
+    - {address: 8.1.8.1, remote_as: 65001, weight: 200 }
+  networks:
+    - {network: 8.1.8.2, mask: 255.255.255.252}
+    - {network: 8.1.7.2, mask: 255.255.255.252}
+    - {network: 17.1.2.0, mask: 255.255.255.252}
+    - {network: 8.8.8.6, mask: 255.255.255.255}

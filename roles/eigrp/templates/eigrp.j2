@@ -1,0 +1,13 @@
+{% if eigrp is defined %}
+router eigrp {{ eigrp.AS }}
+{% for item in eigrp.networks %}
+  network {{ item.network }} {{ item.wildcard_bits }}
+   {% endfor %}
+ {%- endif %}
+
+{% if eigrp_default is defined %}
+{% for item in eigrp_default.interfaces -%}
+  interface {{ item.nameif }}
+  ip summary-address eigrp {{ item.AS }} 0.0.0.0 0.0.0.0 
+{% endfor %}
+{%- endif %}
