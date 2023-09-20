@@ -1,7 +1,10 @@
+
+Requirement to set on the routers before starting to push the configs 
+
 ! Domain name
 ip domain name domain.lan
 
-hostname C4
+hostname "router name" 
 
 
 
@@ -17,18 +20,11 @@ line vty 0 4
 
 
 ! Management IP
-interface GigabitEthernet0/3
- ip address 192.168.124.139 255.255.255.0
+interface GigabitEthernetx/x
+ ip address x.x.x.x x.x.x.x 
  no shut
  exit
 
 crypto key generate rsa modulus 1024
 
 
-
-
-Code improvement :
-
-- Check how to get rid of interfaces ospf config for interfaces that should not be in ospf 
-- ansible vault 
-- jinja 2 templates
